@@ -1,11 +1,7 @@
 import 'dart:math';
-
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-
 import '../global.dart';
 import '../image.dart';
-import '../list.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -222,7 +218,45 @@ class _HomePageState extends State<HomePage> {
           ),
           SizedBox(
             height: 500,
-            child: QuotesList(),
+            child: ListView.builder(
+              itemCount: list.length,
+              itemBuilder: (context, index) => GestureDetector(
+                onTap: () {},
+                child: Column(
+                  children: [
+                    Container(
+                      alignment: Alignment.center,
+                      height: 220,
+                      margin: EdgeInsets.only(bottom: 10),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            HSLColor.fromAHSL(
+                                    1.0, Random().nextDouble() * 360, 0.5, 0.8)
+                                .toColor(),
+                            HSLColor.fromAHSL(
+                                    1.0, Random().nextDouble() * 360, 0.5, 0.8)
+                                .toColor()
+                          ],
+                        ),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          list[index]['Quote'],
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                              color: Colors.black, fontSize: 25),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ),
         ],
       ),
@@ -240,41 +274,52 @@ class QuotesList extends StatefulWidget {
 class _QuotesListState extends State<QuotesList> {
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: list.length,
-      itemBuilder: (context, index) => GestureDetector(
-        onTap: () {},
-        child: Column(
-          children: [
-            Container(
-              alignment: Alignment.center,
-              height: 220,
-              margin: EdgeInsets.only(bottom: 10),
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    HSLColor.fromAHSL(
-                            1.0, Random().nextDouble() * 360, 0.5, 0.8)
-                        .toColor(),
-                    HSLColor.fromAHSL(
-                            1.0, Random().nextDouble() * 360, 0.5, 0.8)
-                        .toColor()
-                  ],
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "Latest Quotes",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ListView.builder(
+          itemCount: list.length,
+          itemBuilder: (context, index) => GestureDetector(
+            onTap: () {},
+            child: Column(
+              children: [
+                Container(
+                  alignment: Alignment.center,
+                  height: 220,
+                  margin: EdgeInsets.only(bottom: 10),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        HSLColor.fromAHSL(
+                                1.0, Random().nextDouble() * 360, 0.5, 0.8)
+                            .toColor(),
+                        HSLColor.fromAHSL(
+                                1.0, Random().nextDouble() * 360, 0.5, 0.8)
+                            .toColor()
+                      ],
+                    ),
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      list[index]['Quote'],
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(color: Colors.black, fontSize: 25),
+                    ),
+                  ),
                 ),
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  list[index]['Quote'],
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(color: Colors.black, fontSize: 25),
-                ),
-              ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
